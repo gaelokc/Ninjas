@@ -23,21 +23,22 @@ class MisionController extends Controller
 
 		if($datos){
 			//TODO: validar los datos introducidos
-			if(Nave::find($datos->nave)&&Piloto::find($datos->piloto)){
-				//Crear el piloto
-				$mision = new Mision();
+			if(Employer::find($datos->employer)&&Ninja::find($datos->ninja)){
+				//Crear la mision
+				$mission = new Mission();
 
 
 				//Valores obligatorios
-				$mision->piloto_id = $datos->piloto;
-				$mision->horas = $datos->horas;
-				$mision->nave_id = $datos->nave;
+				$mission->mission_date = $datos->date;
+				$mission->description = $datos->description;
+				$mission->ninjas_required = $datos->ninjas_required;
+				$mission->priority = $datos->priority;
+				$mission->payment = $datos->payment;
+				$mission->status = $datos->status;
+				$mission->mission_end_date = $datos->mission_end_date;
+				$mission->ninja_id = $datos->ninja;
+				$mission->employer_id = $datos->employer;
 				
-
-				//Valores opcionales
-				if($datos->derribos)
-					$mision->derribos = $datos->derribos;
-				$mision->informe = (isset($datos->informe) ? $datos->informe : null);
 				
 				//Guardar la mision
 				try{
@@ -50,11 +51,11 @@ class MisionController extends Controller
 				}
 
 			}else{
-				$respuesta = "Identificador de nave o piloto incorrecto";
+				$respuesta = "Employer or Ninja incorrect";
 			}
 
 		}else{
-			$respuesta = "Datos incorrectos";
+			$respuesta = "Incorrect data";
 		}
 		
 
@@ -62,14 +63,73 @@ class MisionController extends Controller
 		return response($respuesta);
 	}
 
+	public function modificarMision(Request $request,$id){
+
+		
+		$respuesta = "";
+
+		//Procesar los datos recibidos
+		$datos = $request->getContent();
+
+		//Verificar que hay datos
+		$datos = json_decode($datos);
+
+		if($mission){
+
+			//Procesar los datos recibidos
+			$datos = $request->getContent();
+
+			//Verificar que hay datos
+			$datos = json_decode($datos);
+
+			if($datos){
+
+				//TODO: validar los datos introducidos
+
+				//Valores obligatorios
+				if(isset($datos->mission_date))
+					$employer->mission_date = $datos->mission_date;
+				if(isset($datos->description))
+					$employer->description = $datos->description;
+				if(isset($datos->ninjas_required))
+					$employer->ninjas_required = $datos->ninjas_required;
+				if(isset($datos->priority))
+					$employer->priority = $datos->priority;
+				if(isset($datos->payment))
+					$employer->payment = $datos->payment;
+				if(isset($datos->status))
+					$employer->status = $datos->status;
+				if(isset($datos->mission_end_date))
+					$employer->mission_end_date = $datos->mission_end_date;
+
+				//Guardar el cliente
+				try{
+
+					$employer->save();
+
+					$respuesta = "OK";
+				}catch(\Exception $e){
+					$respuesta = $e->getMessage();
+				}
+			}else{
+				$respuesta = "Incorrect Data";
+			}
+		}else{
+			$response = "No mission found";
+		}
+
+		return response($respuesta);
+	}
+
 	public function verMision($id){
 
-		$mision = Mision::find($id);
+		$mission = Mission::find($id);
 
 		return response()->json([
-			"piloto" => $mision->piloto->numero,
-			"nave" => $mision->nave->modelo,
-			"informe" => $mision->informe
+			"ninja" => $mission->ninja->number,
+			"employer" => $mission->employer->secret_number,
+			"status" => $mission->status,
+			"payment" => $mission->payment
 		]);
 
 	}

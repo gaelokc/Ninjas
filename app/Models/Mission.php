@@ -14,4 +14,8 @@ class Mission extends Model
     	return $this->hasMany(Ninja::class);
     }
 
+    public function employer(){
+    	return $this->belongsTo(Employer::class);
+    }
+
 }

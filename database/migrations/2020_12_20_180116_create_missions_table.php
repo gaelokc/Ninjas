@@ -17,8 +17,8 @@ class CreateMissionsTable extends Migration
             $table->id();
             $table->date('mission_date');
             $table->text('description');
-            $table->UnsignedInteger('minimun_ninjas_required');
-            $table->enum('priority', ['casual', 'urgent']);
+            $table->UnsignedInteger('ninjas_required');
+            $table->enum('priority', ['average', 'urgent']);
             $table->String('payment', 100);
             $table->enum('status', ['pendent', 'active', 'completed', 'failed']);
             $table->date('mission_end_date');

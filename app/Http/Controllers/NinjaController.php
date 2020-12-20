@@ -82,7 +82,7 @@ class NinjaController extends Controller
 				if(isset($datos->name))
 					$ninja->name = $datos->name;
 				if(isset($datos->date))
-					$ninja->registration_dateatos->date
+					$ninja->registration_dateatos->date;
 				if(isset($datos->habilities))
 					$ninja->habilities = $datos->habilities;
 				if(isset($datos->rank))

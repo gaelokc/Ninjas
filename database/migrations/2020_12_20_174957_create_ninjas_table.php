@@ -19,6 +19,7 @@ class CreateNinjasTable extends Migration
             $table->date('registration_date')->nullable();
             $table->text('habilities');
             $table->enum('rank',['genin','chunin','jonin','sensei']);
+            $table->enum('status',['active','retired','dead','rogue']);
             $table->unsignedInteger('number');
             
             $table->unique('number');

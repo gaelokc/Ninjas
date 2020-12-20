@@ -15,7 +15,7 @@ class CreateEmployersTable extends Migration
     {
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
-            $table->bool('VIP client', false);
+            $table->bool('vip_client', false);
             $table->date('first_mission_date');
             $table->unsignedInteger('secret_number');
 
